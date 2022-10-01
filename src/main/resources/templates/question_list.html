@@ -1,5 +1,6 @@
-<link rel="stylesheet" th:href="@{/bootstrap.min.css}" type="text/css">
-<div class="container my-3">
+<!--<link rel="stylesheet" th:href="@{/bootstrap.min.css}" type="text/css">-->
+<html layout:decorate="~{layout}">
+<div class="container my-3" layout:fragment="content">
     <table class="table">
         <thead class="table-dark">
         <tr>
@@ -19,3 +20,4 @@
         </tbody>
     </table>
 </div>
+</html>
