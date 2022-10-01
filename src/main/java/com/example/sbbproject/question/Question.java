@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,4 +29,9 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    public QuestionDto toDto(Question question) {
+        return new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate());
+    }
+
 }
