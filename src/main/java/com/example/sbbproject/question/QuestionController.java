@@ -13,16 +13,17 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/question")
 public class QuestionController {
     private final QuestionService questionService;
-    @RequestMapping("/question/list")
+    @RequestMapping("/list")
     public String questionList(Model model) {
         List<Question> questionList = questionService.getAll();
         List<QuestionDto> questionDtoList = UtilDto.toDtoList(questionList);
         model.addAttribute("questionList", questionDtoList);
         return "question_list";
     }
-    @RequestMapping("/question/detail/{questionId}")
+    @RequestMapping("/detail/{questionId}")
     public String questionDetail(Model model, @PathVariable(value = "questionId") Long questionId) {
         QuestionDto questionDto = UtilDto.toDto(questionService.getQuestionById(questionId));
         model.addAttribute("question", questionDto);
