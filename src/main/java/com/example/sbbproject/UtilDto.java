@@ -15,6 +15,6 @@ public class UtilDto {
         return questionDtoList;
     }
     public static QuestionDto toDto(Question question) {
-        return question.toDto(question);
+        return question.toDto();
     }
 }

@@ -23,4 +23,8 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+
+    public AnswerDto toDto() {
+        return new AnswerDto(this.id, this.content, this.createDate);
+    }
 }

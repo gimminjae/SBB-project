@@ -30,8 +30,8 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 
-    public QuestionDto toDto(Question question) {
-        return new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate());
+    public QuestionDto toDto() {
+        return new QuestionDto(this.getId(), this.getSubject(), this.getContent(), this.getCreateDate());
     }
 
 }
