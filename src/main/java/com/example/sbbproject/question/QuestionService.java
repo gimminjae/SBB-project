@@ -1,5 +1,6 @@
 package com.example.sbbproject.question;
 
+import com.example.sbbproject.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public class QuestionService {
         Optional<Question> optionalQuestion = questionRepository.findById(question_id);
         if(optionalQuestion.isPresent()) {
             return optionalQuestion.get();
-        } else return null;
+        } else throw new DataNotFoundException("data not found");
     }
 }
