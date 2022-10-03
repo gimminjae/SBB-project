@@ -2,6 +2,7 @@ package com.example.sbbproject.question;
 
 import com.example.sbbproject.UtilDto;
 import com.example.sbbproject.answer.AnswerDto;
+import com.example.sbbproject.answer.AnswerForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class QuestionController {
         return "question_list";
     }
     @RequestMapping("/detail/{questionId}")
-    public String questionDetail(Model model, @PathVariable(value = "questionId") Long questionId) {
+    public String questionDetail(Model model, @PathVariable(value = "questionId") Long questionId, AnswerForm answerForm) {
         Question question = questionService.getQuestionById(questionId);
         QuestionDto questionDto = UtilDto.toDto(question);
         List<AnswerDto> answerDtoList = UtilDto.toAnswerDtoList(question.getAnswerList());
