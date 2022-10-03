@@ -4,6 +4,7 @@ import com.example.sbbproject.UtilDto;
 import com.example.sbbproject.answer.AnswerDto;
 import com.example.sbbproject.answer.AnswerForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +20,9 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
     @RequestMapping("/list")
-    public String questionList(Model model) {
-        List<Question> questionList = questionService.getAll();
-        List<QuestionDto> questionDtoList = UtilDto.toQuestionDtoList(questionList);
-        model.addAttribute("questionList", questionDtoList);
+    public String questionList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<Question> questionList = questionService.getList(page);
+        model.addAttribute("questionList", questionList);
         return "question_list";
     }
     @RequestMapping("/detail/{questionId}")
