@@ -29,6 +29,6 @@ public class Answer {
     private SiteUser author;
 
     public AnswerDto toDto() {
-        return new AnswerDto(this.id, this.content, this.createDate);
+        return new AnswerDto(this.id, this.content, this.createDate, this.author);
     }
 }

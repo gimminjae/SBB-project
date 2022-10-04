@@ -13,7 +13,7 @@ public class UtilDto {
     public static List<QuestionDto> toQuestionDtoList(List<Question> questionList) {
         List<QuestionDto> questionDtoList = new ArrayList<>();
         for(Question question : questionList) {
-            questionDtoList.add(new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate()));
+            questionDtoList.add(new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate(), question.getAuthor()));
         }
         return questionDtoList;
     }
@@ -23,7 +23,7 @@ public class UtilDto {
     public static List<AnswerDto> toAnswerDtoList(List<Answer> answerList) {
         List<AnswerDto> answerDtoList = new ArrayList<>();
         for(Answer answer : answerList) {
-            answerDtoList.add(new AnswerDto(answer.getId(), answer.getContent(), answer.getCreateDate()));
+            answerDtoList.add(new AnswerDto(answer.getId(), answer.getContent(), answer.getCreateDate(), answer.getAuthor()));
         }
         return answerDtoList;
     }
@@ -34,7 +34,7 @@ public class UtilDto {
     public static List<QuestionDto> toQuestionDtoPage(Page<Question> questionList) {
         List<QuestionDto> questionDtoList = new ArrayList<>();
         for(Question question : questionList) {
-            questionDtoList.add(new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate()));
+            questionDtoList.add(new QuestionDto(question.getId(), question.getSubject(), question.getContent(), question.getCreateDate(), question.getAuthor()));
         }
         return questionDtoList;
     }

@@ -35,7 +35,7 @@ public class Question {
     private SiteUser author;
 
     public QuestionDto toDto() {
-        return new QuestionDto(this.getId(), this.getSubject(), this.getContent(), this.getCreateDate());
+        return new QuestionDto(this.id, this.subject, this.content, this.createDate, this.author);
     }
 
 }

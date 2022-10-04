@@ -1,5 +1,6 @@
 package com.example.sbbproject.answer;
 
+import com.example.sbbproject.user.SiteUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,5 @@ public class AnswerDto {
     private Long id;
     private String content;
     private LocalDateTime createDate;
+    private SiteUser author;
 }
