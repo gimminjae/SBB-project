@@ -45,4 +45,11 @@ public class QuestionService {
     public List<Question> getAll() {
         return questionRepository.findAll();
     }
+
+    public void modify(Question question, String subject, String content) {
+        question.setModifyDate(LocalDateTime.now());
+        question.setSubject(subject);
+        question.setContent(content);
+        questionRepository.save(question);
+    }
 }
