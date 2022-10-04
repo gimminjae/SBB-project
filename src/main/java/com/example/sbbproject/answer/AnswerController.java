@@ -7,6 +7,7 @@ import com.example.sbbproject.question.QuestionService;
 import com.example.sbbproject.user.SiteUser;
 import com.example.sbbproject.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ public class AnswerController {
     private final QuestionService questionService;
 
     @PostMapping("/create/{questionId}")
+    @PreAuthorize("isAuthenticated()")
     public String createAnswer(Model model, @PathVariable("questionId") Long questionId,
                                @Valid AnswerForm answerForm, BindingResult bindingResult,
                                Principal principal) {
