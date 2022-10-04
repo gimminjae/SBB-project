@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +22,6 @@ public class QuestionDto {
     private String content;
     private LocalDateTime createDate;
     private SiteUser author;
+    private Set<SiteUser> voter;
 
 }

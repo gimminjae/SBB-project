@@ -35,6 +35,6 @@ public class Answer {
     private Set<SiteUser> voter;
 
     public AnswerDto toDto() {
-        return new AnswerDto(this.id, this.content, this.createDate, this.author);
+        return new AnswerDto(this.id, this.content, this.createDate, this.author, this.voter);
     }
 }

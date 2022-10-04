@@ -41,7 +41,7 @@ public class Question {
     private Set<SiteUser> voter;
 
     public QuestionDto toDto() {
-        return new QuestionDto(this.id, this.subject, this.content, this.createDate, this.author);
+        return new QuestionDto(this.id, this.subject, this.content, this.createDate, this.author, this.voter);
     }
 
 }
