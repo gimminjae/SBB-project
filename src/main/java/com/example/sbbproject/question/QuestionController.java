@@ -3,6 +3,8 @@ package com.example.sbbproject.question;
 import com.example.sbbproject.UtilDto;
 import com.example.sbbproject.answer.AnswerDto;
 import com.example.sbbproject.answer.AnswerForm;
+import com.example.sbbproject.user.SiteUser;
+import com.example.sbbproject.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/question")
 public class QuestionController {
+    private final UserService userService;
     private final QuestionService questionService;
     @RequestMapping("/list")
     public String questionList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
@@ -41,11 +45,12 @@ public class QuestionController {
         return "question_form";
     }
     @PostMapping("/create")
-    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
         if(bindingResult.hasErrors()) {
             return "question_form";
         }
-        questionService.create(questionForm.getSubject(), questionForm.getContent());
+        SiteUser siteUser = userService.getUser(principal.getName());
+        questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);
         return "redirect:/question/list";
     }
 }
