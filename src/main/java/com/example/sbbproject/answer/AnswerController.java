@@ -7,14 +7,13 @@ import com.example.sbbproject.question.QuestionService;
 import com.example.sbbproject.user.SiteUser;
 import com.example.sbbproject.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
@@ -43,5 +42,28 @@ public class AnswerController {
         answerService.create(answerForm.getContent(), question, siteUser);
 
         return "redirect:/question/detail/%d".formatted(questionId);
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{answerId}")
+    public String answerModify(AnswerForm answerForm, @PathVariable("answerId") Long answerId, Principal principal) {
+        Answer answer = answerService.getAnswerById(answerId);
+        if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        answerForm.setContent(answer.getContent());
+        return "answer_form";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{answerId}")
+    public String answerModify(@Valid AnswerForm answerForm, BindingResult bindingResult, @PathVariable("answerId") Long answerId, Principal principal) {
+        if(bindingResult.hasErrors()) {
+            return "answer_form";
+        }
+        Answer answer = answerService.getAnswerById(answerId);
+        if(!answer.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        answerService.modify(answer, answerForm.getContent());
+        return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
     }
 }
