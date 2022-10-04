@@ -1,9 +1,12 @@
 package com.example.sbbproject.user;
 
+import com.example.sbbproject.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +23,14 @@ public class UserService {
         userRepository.save(siteUser);
 
         return siteUser;
+    }
+
+    public SiteUser getUser(String name) {
+        Optional<SiteUser> optionalSiteUser = userRepository.findByUsername(name);
+        if(optionalSiteUser.isPresent()) {
+            return optionalSiteUser.get();
+        } else {
+            throw new DataNotFoundException("사용자를 찾을 수 없습니다.");
+        }
     }
 }
