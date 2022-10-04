@@ -13,6 +13,7 @@
             </div>
             <div class="my-3">
                 <a class="recommend btn btn-sm btn-outline-secondary"
+                   onclick="if (!confirm('추천하시겠습니까?')) return false;"
                    th:href="@{|/question/vote/${question.id}|}">
                     추천
                     <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
