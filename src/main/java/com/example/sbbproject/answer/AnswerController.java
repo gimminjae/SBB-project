@@ -39,9 +39,9 @@ public class AnswerController {
             model.addAttribute("answerList", UtilDto.toAnswerDtoList(question.getAnswerList()));
             return "question_detail";
         }
-        answerService.create(answerForm.getContent(), question, siteUser);
+        Answer answer = answerService.create(answerForm.getContent(), question, siteUser);
 
-        return "redirect:/question/detail/%d".formatted(questionId);
+        return "redirect:/question/detail/%d#answer_%d".formatted(questionId, answer.getId());
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{answerId}")
@@ -64,7 +64,7 @@ public class AnswerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         answerService.modify(answer, answerForm.getContent());
-        return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+        return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answerId);
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{answerId}")
@@ -84,6 +84,6 @@ public class AnswerController {
 
         answerService.vote(answer, siteUser);
 
-        return "redirect:/question/detail/%d".formatted(answer.getQuestion().getId());
+        return "redirect:/question/detail/%d#answer_%d".formatted(answer.getQuestion().getId(), answerId);
     }
 }
