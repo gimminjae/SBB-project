@@ -1,6 +1,7 @@
 package com.example.sbbproject.question;
 
 import com.example.sbbproject.answer.Answer;
+import com.example.sbbproject.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,9 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @ManyToOne
+    private SiteUser author;
 
     public QuestionDto toDto() {
         return new QuestionDto(this.getId(), this.getSubject(), this.getContent(), this.getCreateDate());

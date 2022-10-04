@@ -1,6 +1,7 @@
 package com.example.sbbproject.answer;
 
 import com.example.sbbproject.question.Question;
+import com.example.sbbproject.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,9 @@ public class Answer {
 
     @ManyToOne
     private Question question;
+
+    @ManyToOne
+    private SiteUser author;
 
     public AnswerDto toDto() {
         return new AnswerDto(this.id, this.content, this.createDate);
